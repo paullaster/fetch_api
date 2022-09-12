@@ -2,9 +2,9 @@ let mainDiv = document.querySelector('#people');
 let getPeopleBtn = mainDiv.querySelector('button');
 getPeopleBtn.addEventListener('click', getPeople);
 
-
+const peopleId = Math.floor(Math.random() * 90 + 1)
 function getPeople(){
-    fetch("https://swapi.dev/api/people/1/")
+    fetch(`https://swapi.dev/api/people/${peopleId}/`)
     .then((res)=>{
         return res.json();
     })
@@ -24,13 +24,4 @@ function tinkDom(dataObj) {
         mainDiv.appendChild(para);
     }
 }
-fetch(`https://swapi.dev/api/planets/1/`)
-.then((res)=>{
-    return res.json();
-})
-.then((data)=>{
-    console.log(data);
-})
-.catch((err)=>{
-    console.error(err);
-});
+
