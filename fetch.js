@@ -20,7 +20,7 @@ function getPeople(){
 function tinkDom(dataObj) {
     for(let key in dataObj){
         let para = document.createElement('p');
-        para.innerHTML = `${key} :  ${dataObj[key]}`;
+        para.innerHTML += `${key} :  ${dataObj[key]}`;
         mainDiv.appendChild(para);
     }
 }
