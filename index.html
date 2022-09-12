@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Api</title>
+    <style>
+        .users{
+            background: #ddd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+    </style>
+</head>
+<body>
+    <button id="getText"> Get Text</button>
+    <div class="app"></div>
+    <script>
+        document.getElementById('getText').addEventListener('click',(e) =>{
+            e.preventDefault();
+            fetch('https://reqres.in/api/users?page=2/geek')
+            .then((res) =>{
+                console.log(res);
+              
+                return res.json();
+            })
+            .then( data =>{
+                console.log(data.data);
+                const html = data.data
+                .map( users =>{
+                    return `
+                    <div class="users">
+                    <p> <img src="${users.avatar}" alt="${users.first_name}" /> </p>
+                    <P> Name : ${users.first_name}  ${users.last_name}</p>
+                    <P> Email : ${users.email} </p>
+                    </div>`
+                })
+                .join('')
+                document.querySelector('.app').insertAdjacentHTML('afterbegin', html);
+
+            })
+            .catch(err =>{
+                console.log(err);
+
+            }, (event) =>{
+                event.preventDefault();
+                fetch('https://reqres.in/api/users/2', {
+                    method: "POST",
+                    headers:{
+                        "Content-type": "application/json"
+                    },
+                    body:JSON.stringify({
+                        "name": "morpheus",
+                         "job": "leader"
+                    })
+                })
+                .then(res =>{
+                    return res.json();
+                })
+                .then( data =>{
+                    console.log(data);
+                })
+                .catch(err =>{
+                    console.log(err);
+                })
+            })
+        })
+    </script>
+</body>
+</html>
